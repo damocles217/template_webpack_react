@@ -1,0 +1,62 @@
+version: 2
+
+aliases:
+  - &docker
+    - image: cimg/node:16.11.1
+  - &restore_yarn_cache
+    restore_cache:
+      name: Restore yarn cache
+      key: v2-node-{{ arch }}-{{ checksum "yarn.lock" }}-yarn
+  - &restore_node_modules
+    restore_cache:
+      name: Restore node_modules cache
+      keys:
+        - v2-node-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum "workspace_info.txt" }}-node-modules
+
+jobs:
+  test:
+    docker: *docker
+    working_directory: ~/backend
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - run:
+          name: Install dependencies
+          command: |
+            curl -o- -L https://yarnpkg.com/install.sh | sh
+            yarn --cache-folder ~/.cache/yarn
+      - run: yarn workspaces info | head -n -1 > ~/frontend/workspace_info.txt
+      - *restore_node_modules
+      - save_cache:
+          name: Save yarn cache for future installs
+          key: v2-node-{{ arch }}-{{ checksum "yarn.lock" }}-yarn
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          name: Save node_modules cache
+          key: v2-node-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum "workspace_info.txt" }}-node-modules
+          paths:
+            - node_modules
+      - run:
+          name: Create yarn test
+          command: yarn test
+  deploy:
+    docker: *docker
+    working_directory: ~/backend
+    steps:
+      - checkout
+      - run:
+          name: Setup Heroku
+          command: bash .circleci/setup-heroku.sh
+      - run:
+          name: Setting on heroku
+          command: git push heroku master
+
+workflows:
+  version: 2
+  ciworkflow:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test

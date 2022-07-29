@@ -53,6 +53,7 @@ const config: Configuration = {
 	},
 
 	optimization: {
+		portableRecords: true,
 		chunkIds: 'named',
 		moduleIds: 'named',
 		mangleExports: 'size',
@@ -85,7 +86,6 @@ const config: Configuration = {
 			maxAsyncRequests: 30,
 			minSize: 10000,
 			maxSize: 124000,
-
 			cacheGroups: {
 				// Specific configuration for react optimization size
 				reactVendor: {

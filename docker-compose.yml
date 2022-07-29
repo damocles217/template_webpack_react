@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    image: frontend:latest
+    container_name: frontend
+    volumes:
+      - ./:/usr/frontend
+    restart: always
+    stdin_open: true
+    logging:
+      driver: none
