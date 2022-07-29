@@ -17,7 +17,7 @@ const config: Configuration = {
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js'],
 		alias: {
-			'@': resolve(__dirname, '..', 'src'),
+			'@src': resolve(__dirname, '..', 'src'),
 		},
 	},
 

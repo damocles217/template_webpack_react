@@ -9,6 +9,7 @@ const config: Config.InitialOptions = {
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
 	moduleNameMapper: {
 		// Maps every Css/Sass module
+		'^@src/(.*)$': '<rootDir>/src/$1',
 		'\\.(css|scss)$': 'identity-obj-proxy',
 	},
 	globals: {

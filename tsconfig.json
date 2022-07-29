@@ -12,7 +12,7 @@
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"paths": {
-			"@/*": ["src/*"]
+			"@src/*": ["src/*"]
 		}
 	},
 	"exclude": ["src/**/*.spec.ts"]

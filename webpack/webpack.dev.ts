@@ -62,7 +62,7 @@ const config = merge<Configuration>(CommonConfig, {
 		type: 'filesystem',
 		version: '1.0.0',
 		maxAge: 300000,
-		hashAlgorithm: 'md4',
+		// hashAlgorithm: 'md4',
 		compression: 'gzip',
 		cacheLocation: resolve(__dirname, 'cache'),
 	},

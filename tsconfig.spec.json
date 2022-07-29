@@ -2,7 +2,6 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"jsx": "react-jsx",
 		"isolatedModules": true // Faster transpilation (it allow not check types inter different modules)
 	}
 }
