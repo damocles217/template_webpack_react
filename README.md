@@ -13,3 +13,11 @@ Jest uses typescript and I test that is enough for futures implementations.
 ## Express
 
 The last important theme about this template, is we use express for serve the files. But when we make a query of a dot js file, express sends a gzip module, for optimize the loading of them.
+
+## Git hooks
+
+If you want to implement my git hooks, please put this command:
+
+```bash
+git config core.hooksPath .githooks
+```
