@@ -11,7 +11,6 @@ const config: Configuration = {
 		path: resolve(__dirname, '..', 'dist'),
 		filename: '[name].[fullhash].js',
 		clean: true,
-		publicPath: '/',
 	},
 
 	resolve: {
@@ -25,7 +24,7 @@ const config: Configuration = {
 		new MiniCssExtract(),
 		new HtmlPlugin({
 			scriptLoading: 'module',
-			template: '/global/index.html',
+			template: resolve(__dirname, '..', 'global', 'index.html'),
 			minify: true,
 		}),
 	],
@@ -92,6 +91,7 @@ const config: Configuration = {
 					test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom)[\\/]/,
 					name: 'vendor-react',
 					chunks: 'all',
+					minChunks: 1,
 					maxSize: 140000,
 				},
 			},
